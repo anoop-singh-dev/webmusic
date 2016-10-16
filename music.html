@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" type="text/html" charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>WEB MUSIC</title>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			body{background:#4c5666;font-size:12px;font-family:"微软雅黑";color:#666;}
+			a{text-decoration:none;}
+			/*music start*/
+			#music{width:610px;height:470px;margin:100px auto;overflow:hidden}
+			#music .m_lrc{width:300px;height:470px;float:left;background:#787878;border-radius:5px;}
+			#music .m_list{width:300px;height:470px;float:right;background:#212732;border-radius:5px;}
+			#music .m_lrc .l_title{width:100%;height:65px;border-radius:5px 5px 0 0;border-bottom:1px solid #ced1d3;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f3f3), color-stop(1, #dddfe1));} 
+			#music .l_con{width:300px;height:329px;overflow:auto;background:url("images/bg.jpg") no-repeat;background-size:cover;position:relative;}
+			#music .l_con .c_lrc{width:300px;height:329px;overflow:auto;position:absolute;top:0;left:0;z-index:2;}
+			#music .l_con .c_img{position:absolute;left:0;top:15px;z-index:1;}
+			#music .m_lrc .l_tools{width:100%;height:104px;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f3f3), color-stop(1, #dddfe1));border-radius:0 0 5px 5px;}
+			#music .m_lrc .l_title .l_dir a{width:24px;height:18px;display:block;background:url("images/sm_icon.png") no-repeat -243px -127px;float:left;margin:26px 12px 0 15px;}
+			#music .m_lrc .l_title .l_dir a:hover{background-position:-243px -151px;}
+			#music .m_lrc .l_title h2{float:left;line-height:65px;width:200px;text-align:center;font-size:20px;font-wight:500px;}
+			#music .m_lrc .l_title .l_share a{width:18px;height:18px;display:block;background:url("images/sm_icon.png") no-repeat -269px -127px;float:right;margin:27px 17px 0 0;}
+			#music .m_lrc .l_title .l_share a:hover{background-position:-28px -149px;}
+			#music .m_lrc .l_tools .t_play{width:100%;height:40px;padding:5px 0;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_com{display:block;background:url("images/sm_icon.png") no-repeat;float:left;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_1{width:23px;height:19px;background-position:-291px -127px;margin:12px 0 0 7px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_1:hover{background-position:-291px -151px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_1.sel{background-position:-291px -151px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_2{width:28px;height:18px;background-position:-317px -127px;margin:12px 0 0 55px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_2:hover{background-position:-317px -152px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_3{width:20px;height:25px;background-position:-347px -125px;margin:8px 0 0 20px;display:none;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_3:hover{background-position:-347px -151px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_6{width:20px;height:25px;background-position:-369px -125px;margin:8px 0 0 20px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_6:hover{background-position:-369px -151px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_4{width:28px;height:18px;background-position:-392px -127px;margin:12px 0 0 20px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_4:hover{background-position:-392px -151px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_5{width:24px;height:22px;background-position:-421px -126px;margin:12px 0 0 68px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_5:hover{background-position:-421px -151px;}
+			#music .m_lrc .l_tools .t_play .p_btn .b_5.sel{background-position:-421px -151px;}
+			#music .m_lrc .l_tools .t_time{width:100%;height:14px;padding:2px 0;}
+			#music .m_lrc .l_tools .t_time .t_start{float:left;width:35px;padding-left:10px;}
+			#music .m_lrc .l_tools .t_time .t_bar{width:206px;height:8px;background:#a2a7aa;float:left;margin-top:5px;border-radius:5px;position:relative;}
+			#music .m_lrc .l_tools .t_time .t_bar .b1{width:30%;height:8px;background:#f0676a;border-radius:6px 0 0 6px;}
+			#music .m_lrc .l_tools .t_time .t_bar .b2{width:12px;height:8px;background:#fff;position:absolute;top:0px;left:29%;border-radius:50%;cursor:pointer;z-index:2;}
+			#music .m_lrc .l_tools .t_time .t_bar .b_click{width:100%;height:100%;position:absolute;top:0;left:0;z-index:1;}
+			#music .m_lrc .l_tools .t_time .t_end{float:left;width:35px;padding-left:12px;}
+			/*end m_lrc*/
+			
+			/*m_list start*/
+			#music .m_list .l_name{width:100%;height:48px;background:#f0676a;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #f87d7a), color-stop(1, #ef6a6c));border-radius:5px 5px 0 0;}
+			#music .m_list .l_name .n_back a{width:16px;height:12px;display:block;background:url("images/sm_icon.png") no-repeat -448px -128px;float:left;margin:20px 0px 0 10px;}
+			#music .m_list .l_name .n_back a:hover{background-position:-448px -150px;}
+			#music .m_list .l_name .n_text{width:237px;float:left;color:#fff;line-height:48px;text-align:center;font-size:16px;}
+			#music .m_list .l_name .n_download a{width:23px;height:16px;display:block;background:url("images/sm_icon.png") no-repeat -468px -128px;float:left;margin-top:18px;}
+			#music .m_list .l_name .n_download a:hover{background-position:-468px -151px;}
+			
+			#music .m_list .l_m_con ul li{width:100%;height:40px;list-style:none;font-size:14px;border-bottom:1px solid #1b1f25;line-height:40px;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #262c35), color-stop(1, #212732));}
+			#music .m_list .l_m_con ul .m_sel{border-bottom:1px solid #ec5b62;}
+			#music .m_list .l_m_con ul .m_sel i{background-position:-13px -150px;}
+			#music .m_list .l_m_con ul .m_sel a{color:#fff;}
+			#music .m_list .l_m_con ul li i{width:12px;height:16px;display:block;float:left;background:url("images/sm_icon.png") no-repeat 0 -150px;margin:12px;}
+			#music .m_list .l_m_con ul li a{width:224px;display:block;float:left;color:#7e868e;}
+			#music .m_list .l_m_con ul li a:hover{color:#fff;}
+
+			.lrcLine{font-size:14px;color:#fff;line-height:30px;padding-left:15px;}
+			/*css3*/
+			::-webkit-scrollbar{width:5px;height:6px;background:#ccc;}
+			::-webkit-scrollbar-button{background-color:#e5e5e5}
+			::-webkit-scrollbar-track{background:#999}
+			::-webkit-scrollbar-track-piece{background:#ccc}
+			::-webkit-scrollbar-thumb{background:#666}
+			::-webkit-scrollbar-corner{background:82AFFF;}
+			::-webkit-scrollbar-resizer{background:#ff0bee}
+			scrollbar{-moz-appearance:none !important;background:rgb(0,255,0)!important;}
+			scrollbarbutton{-moz-appearance:none !important;background-color:rgb(0,0,255)!important;}
+			scrollbarbutton:hover{-moz-appearance:none !important;background-color:rgb(255,0,0)!important;}
+
+			.lrcSel{font-size:16px;color:yellow;}
+			/*end m_list*/
+			/*end music*/
+			
+			@keyframes rotate{
+				0%{
+					transform:rotate(0deg);
+					-webkit-transform:rotate(0deg);
+					-ms-transform:rotate(0deg);
+					-moz-transform:rotate(0deg);
+					-o-transform:rotate(0deg);
+				}
+				100%{
+					transform:rotate(360deg);
+					-webkit-transform:rotate(360deg);
+					-ms-transform:rotate(360deg);
+					-moz-transform:rotate(360deg);
+					-o-transform:rotate(360deg);
+				}
+			}
+
+			.sakila{
+				animation:rotate 10s linear infinite;
+				-webkit-animation:rotate 10s linear infinite;
+				-ms-animation:rotate 10s linear infinite;
+				-moz-animation:rotate 10s linear infinite;
+				-o-animation:rotate 10s linear infinite;
+			}
+
+
+
+
+		</style>
+	 </head>
+	<body>
+		<!--music start-->
+		<div id="music">
+			<!--m_lrc start-->
+			<div class="m_lrc">
+				<div class="l_title">
+					<div class="l_dir">
+						<a href="javascript:;" class="expandon"></a>
+					</div>
+					<h2 id="l_name_song">WEB MUSIC</h2>
+					<div class="l_share">
+						<a href="javascript:;"></a>
+					</div>
+				</div>
+				<div class="l_con">
+					<div class="c_lrc"></div>
+					<div class="c_img">
+						<img src="images/m.png" alt="logo" width="300" height="300" class="sakila" />
+					</div>
+				</div>
+				<div class="l_tools">
+					<div class="t_play">
+						<div class="p_btn">
+							<a href="javascript:;" class="b_com b_1 mark" data-mark="2" title="Next"></a>
+						</div>
+						<div class="p_btn">
+							<a href="javascript:;" class="b_com b_2 prev"></a>
+						</div>
+						<div class="p_btn">
+							<a href="javascript:;" class="b_com b_6" id="play" title="play"></a>
+							<a href="javascript:;" class="b_com b_3" id="pause" title="pause"></a>
+						</div>
+						<div class="p_btn">
+							<a href="javascript:;" class="b_com b_4 next"></a>
+						</div>
+						<div class="p_btn">
+							<a href="javascript:;" class="b_com b_5 mark" data-mark="1" title="随机播放"></a>
+						</div>
+					</div>
+					<div class="t_time">
+						<div class="t_start">0:00</div>
+						<div class="t_bar">
+							<div class="b1 b_scroll"></div>
+							<div class="b2 b_flag"></div>
+							<div class="b3 b_click"></div>
+						</div>
+						<div class="t_end">0:00</div>
+					</div>
+				</div>
+			</div>
+			<!--end m_lrc-->
+			<!--m_list start-->
+			<div class="m_list">
+				<div class="l_name">
+					<div class="n_back">
+						<a href="javascript:;" class="expand"></a>
+					</div>
+					<div class="n_text">WEB MUSIC</div>
+					<div class="n_download">
+						<a href="javascript:;"></a>
+					</div>
+				</div>
+				<div class="l_m_con">
+					<ul id="m_box">
+						<li class="m_items" data-src="mp3/1.mp3">
+							<i></i>
+							<a href="javascript:;"> Kaun tujhe </a>
+							<span>...</span>
+						</li>
+						<li class="m_items" data-src="mp3/2.mp3">
+							<i></i>
+							<a href="javascript:;">Bulleya</a>
+							<span>...</span>
+						</li>
+						<li class="m_items" data-src="mp3/3.mp3">
+							<i></i>
+							<a href="javascript:;"> Channa Mereya</a>
+							<span>...</span>
+						</li>
+						<li class="m_items" data-src="mp3/4.mp3">
+							<i></i>
+							<a href="javascript:;">Tum Hi Ho</a>
+							<span>...</span>
+						</li>
+						<li class="m_items" data-src="mp3/5.mp3">
+							<i></i>
+							<a href="javascript:;">Sunn Raha Hai</a>
+							<span>...</span>
+						</li>
+						<li class="m_items" data-src="mp3/6.mp3">
+							<i></i>
+							<a href="javascript:;"> Galliyan</a>
+							<span>...</span>
+						</li>
+						<li class="m_items" data-src="mp3/7.mp3">
+							<i></i>
+							<a href="javascript:;">Kala Chashma</a>
+							<span>...</span>
+						</li>
+						<li class="m_items" data-src="mp3/8.mp3">
+							<i></i>
+							<a href="javascript:;"> Tere Sang Yaara</a>
+							<span>...</span>
+						</li>
+						<li class="m_items" data-src="mp3/9.mp3">
+							<i></i>
+							<a href="javascript:;">Sanam Re</a>
+							<span>...</span>
+						</li>
+						<li class="m_items" data-src="mp3/10.mp3">
+							<i></i>
+							<a href="javascript:;">Bekhudi</a>
+							<span>...</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--end m_list-->
+		</div>
+		<!--end music-->
+		<audio id="audio"></audio>
+		<!--<textarea id="lrc">
+		[00:02.25]......WEB MUSIC......
+		[00:05.87]
+		[00:08.45]******WEB MUSIC******
+		[00:13.11]
+		[00:19.45]......WEB MUSIC......
+		[00:23.94]******WEB MUSIC******
+		[00:28.11]......WEB MUSIC......
+		[00:32.44]******WEB MUSIC******
+		[00:34.91]......WEB MUSIC......
+		[00:39.25]******WEB MUSIC******
+		[00:43.61]......WEB MUSIC......
+		[00:52.43]******WEB MUSIC******
+		[00:56.95]******WEB MUSIC******
+		[01:00.87]......WEB MUSIC......
+		[01:05.53]******WEB MUSIC******
+		[01:09.50]......WEB MUSIC......
+		[01:14.10]******WEB MUSIC******
+		[01:18.50]......WEB MUSIC......
+		[01:22.99]******WEB MUSIC******
+		[01:27.40]
+		[01:47.31]......WEB MUSIC......
+		[01:51.78]******WEB MUSIC******
+		[01:56.03]......WEB MUSIC......
+		[02:00.41]******WEB MUSIC******
+		[02:02.60]......WEB MUSIC......
+		[02:07.27]******WEB MUSIC******
+		[02:11.46]......WEB MUSIC......
+		[02:20.19]******WEB MUSIC******
+		[02:24.85]......WEB MUSIC......
+		[02:28.77]******WEB MUSIC******
+		[02:33.39]......WEB MUSIC......
+		[02:37.35]******WEB MUSIC******
+		[02:41.97]......WEB MUSIC......
+		[02:46.31]******WEB MUSIC******
+		[02:50.80]......WEB MUSIC......
+		[02:54.88]
+		[02:56.46]******WEB MUSIC******
+		[03:01.30]......WEB MUSIC......
+		[03:05.21]******WEB MUSIC******
+		[03:09.92]......WEB MUSIC......
+		[03:13.77]******WEB MUSIC******
+		[03:18.38]......WEB MUSIC......
+		[03:22.66]******WEB MUSIC******
+		[03:27.35]......WEB MUSIC......
+		[03:31.01]
+		</textarea>-->
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript">
+			//var audioDom = document.createElement("audio");
+			var audioDom = document.getElementById("audio");
+			var playIndex = 0;
+			var len = $("#m_box").children().length; 
+			function timeEvent(){
+				audioDom.oncanplaythrough = function(){
+					var time = this.duration;
+					var ftime = formartTime(time);
+					$(".t_start").text(ftime);
+				}
+				audioDom.ontimeupdate = function(){
+					var time = this.duration;
+					var stime = this.currentTime;
+					var ftime = formartTime(stime);
+					$(".t_end").text(ftime);
+					var pbit = stime / time
+					var percent = pbit * 100;
+					$(".b1").width(percent + "%");
+					$(".b2").css("left",(percent) + "%");
+				}
+				audioDom.onended = function(){
+					if(mark == 2){
+						nextMusic();
+					} else{
+						randomMusic();
+					}
+				}
+			}
+			
+			function formartTime(time){
+				var m = Math.floor(time / 60);
+				var s = Math.floor(time % 60);
+				return (m < 10 ? "0" + m:m) + ":" + (s < 10 ? "0" + s:s);
+			}
+		
+			function replaceName(obj){
+				var name = obj.find("a").text();
+				$("#l_name_song").text(name);
+			}
+			
+			function nextMusic(){
+				
+				playIndex = (playIndex == (len-1) ? 0:++playIndex);
+				
+				var sel = $("#m_box").find(".m_items").eq(playIndex);
+				var src = sel.data("src");
+				addMusic(src);
+			
+				playMusic(sel);
+				sel.addClass("m_sel").siblings().removeClass("m_sel");
+			}
+	
+			function prevMusic(){
+				playIndex = (playIndex == 0 ? (len-1):--playIndex);
+			
+				var sel = $("#m_box").find(".m_items").eq(playIndex);
+				var src = sel.data("src");
+
+				addMusic(src);
+				playMusic(sel);
+				sel.addClass("m_sel").siblings().removeClass("m_sel");
+			}
+			
+			function addMusic(src){
+				audioDom.src = src;
+				loadLrc(src);
+			}
+
+			function playMusic(obj){
+				audioDom.play();
+				replaceName(obj);
+			}
+
+			function randomMusic(){
+				var random = Math.floor(Math.random()*len);
+				playIndex = random;
+				var sel = $("#m_box").find(".m_items").eq(playIndex);
+				var src = sel.data("src");
+				
+				addMusic(src);
+				
+				playMusic(sel);
+				sel.addClass("m_sel").siblings().removeClass("m_sel");
+			}
+			$(function(){
+	
+				timeEvent();
+
+				$("#play").click(function(){
+		
+					var sel = $("#m_box").find(".m_sel");
+			
+					var src = sel.data("src");
+					if(!src){
+					
+						sel = $("#m_box").find("li").eq(0);
+						src = sel.data("src");
+				
+						addMusic(src);
+						sel.addClass("m_sel");
+					}
+					playMusic(sel);
+
+					$("#play").hide().next().show();
+					prevIndex = sel.index();
+				});
+
+				$("#pause").click(function(){
+					audioDom.pause();
+					$("#pause").hide().prev().show();
+				});
+
+				$("#m_box").find(".m_items").click(function(){
+					var src = $(this).data("src");
+					addMusic(src);
+					playMusic($(this));
+					$(this).addClass("m_sel").siblings().removeClass("m_sel");
+					playIndex = $(this).index();
+					$("#play").trigger("click");
+				});
+
+				$(".next").click(function(){
+					nextMusic();
+				});
+				$(".prev").click(function(){
+					prevMusic();
+				});
+
+				$(".mark").click(function(){
+					mark = $(this).data("mark");
+					$(".mark").removeClass("sel");
+					$(this).addClass("sel");
+					if(mark ==2){
+						nextMusic();
+					} else{
+						randomMusic();
+					}
+				});
+
+				$(".expand").click(function(){
+					$(".m_list").animate({left:-310},function(){
+						$("#music").animate({width:300});
+					});
+				});
+				$(".expandon").click(function(){
+					$("#music").width(610);
+					$(".m_list").animate({left:0});
+				});
+
+				$(".b2").mousedown(function(e){
+					
+					var _this = $(this);
+					
+					var x = e.clientX || e.pageX;
+					
+					var left = _this.position().left;
+					
+					var maxLeft = _this.parent().width() - 10;
+					audioDom.pause();
+				
+					$(document).mousemove(function(e){
+						var n1 = (e.clientX || e.pageX) - x + left;
+						if(n1 < 0){n1 = 0;}
+						if(n1 > maxLeft){n1=maxLeft;}
+						
+						_this.css("left",n1);
+						var percent = (n1 / maxLeft) * 100;
+						$(".b_scroll").width(percent + "%");
+						$(".b_flag").css("left",(percent-2)+"%");
+
+						audioDom.currentTime = audioDom.duration * (n1 / maxLeft);
+					}).mouseup(function(){
+						audioDom.play();
+						$(document).unbind("mousemove");
+						$(document).unbind("mouseup");
+					});
+				});
+				$(".b_click").mousedown(function(e){
+					var _this = $(this);
+					var x = e.clientX || e.pageX;
+					var left = _this.parent().offset().left;
+					var maxWidth = _this.parent().width();			
+      				var w = x - left;		
+					var percent = (w / maxWidth) * 100;
+					
+					$(".b_scroll").width(percent + "%");
+					$(".b_flag").css("left",(percent-2)+"%");
+					
+					audioDom.currentTime = audioDom.duration * (w/maxWidth);
+				});
+			});
+			
+			function loadLrc(name){
+
+			}
+			$(function(){
+				var text = $("#lrc").val();
+				var lrcArr = text.split("[");
+				var htmlLrc = "";
+				for(var i=0;i<lrcArr.length;i++){
+				
+					var arr = lrcArr[i].split("]");
+					//console.log(arr);
+					var message = arr[1];
+					var timer = arr[0].split(".");
+					var stime = timer[0].split(":");
+					
+					var ms = stime[0]*60 + stime[1]*1-1;
+					if(message){
+						htmlLrc +="<div class='lrcLine' id='"+ms+"'>"+message+"</div>";
+					}
+				}
+				$(".c_lrc").html(htmlLrc);
+				audioDom.addEventListener("timeupdate",function(){
+					var timer = this.currentTime;
+					var m = parseInt(timer / 60);
+					var s = parseInt(timer);
+					for(var i=0;i<s;i++){
+						$("#"+i).addClass("lrcSel").siblings().removeClass("lrcSel");
+					}
+					var st = m * 60 + s;
+					$(".c_lrc").scrollTop(st*2);
+				});
+
+			});
+		</script>
+	 </body>
+</html>
